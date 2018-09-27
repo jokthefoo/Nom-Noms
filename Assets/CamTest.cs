@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using ZXing;
@@ -6,33 +7,43 @@ using ZXing;
 public class CamTest : MonoBehaviour {
 
     private WebCamTexture camTexture;
-    private Rect screenRect;
     private IBarcodeReader barcodeReader;
     private bool cameraInitialized;
     private bool isDecoding = false;
     private float nextUpdate = 1;
     private bool cameraActive = false;
-    public Text displayText;
+    public GameObject button;
+    public GameObject camImage;
+    public GameObject displayText;
 
-    void Start()
+    IEnumerator Start()
     {
-        screenRect = new Rect(0, 0, Screen.width, Screen.height);
+        Screen.orientation = ScreenOrientation.LandscapeLeft;
+
+        yield return new WaitForSeconds(.5f);
+
         camTexture = new WebCamTexture();
         camTexture.requestedHeight = Screen.height;
         camTexture.requestedWidth = Screen.width;
         barcodeReader = new BarcodeReader();
+
+        float height = 2.0f * Mathf.Tan(0.5f * Camera.main.fieldOfView * Mathf.Deg2Rad) * 1.3f;
+        float width = height * Screen.width / Screen.height;
+
+        camImage.transform.localScale = new Vector3(width, 1, height);
+        camImage.GetComponent<Renderer>().material.mainTexture = camTexture;
         if (camTexture != null)
         {
             camTexture.Play();
         }
-
         cameraInitialized = true;
+        displayText.GetComponent<Text>().text = "";
     }
     private void Update()
     {
         if (Time.time >= nextUpdate && cameraActive)
         {
-            nextUpdate = Time.time + .1f;
+            nextUpdate = Time.time + 1f;
             decode();
         }
     }
@@ -49,11 +60,15 @@ public class CamTest : MonoBehaviour {
                 var result = barcodeReader.Decode(camTexture.GetPixels32(), camTexture.width, camTexture.height);
                 if (result != null)
                 {
+#if UNITY_EDITOR
                     Debug.Log("DECODED TEXT FROM QR: " + result.Text);
                     ResultPoint[] point = result.ResultPoints;
                     Debug.Log("X: " + point[0].X + " Y: " + point[1].Y);
-                    displayText.text = result.Text;
+#endif
+                    displayText.GetComponent<Text>().text = result.Text;
                     cameraActive = false;
+                    camImage.GetComponent<Renderer>().enabled = false;
+                    button.GetComponentInChildren<Text>().text = "Scan Barcode";
                 }
                 else
                 {
@@ -68,17 +83,19 @@ public class CamTest : MonoBehaviour {
         }
     }
 
-    void OnGUI()
-    {
-        // drawing the camera on screen
-        if(cameraActive)
-        {
-            GUI.DrawTexture(screenRect, camTexture, ScaleMode.ScaleToFit);
-        }
-    }
-
     public void buttonClick()
     {
-        cameraActive = true;
+        if(cameraActive)
+        {
+            cameraActive = false;
+            button.GetComponentInChildren<Text>().text = "Scan Barcode";
+            camImage.GetComponent<Renderer>().enabled = false;
+        }
+        else
+        {
+            cameraActive = true;
+            button.GetComponentInChildren<Text>().text = "Stop Scan";
+            camImage.GetComponent<Renderer>().enabled = true;
+        }
     }
 }
