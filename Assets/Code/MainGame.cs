@@ -56,7 +56,7 @@ public class MainGame : MonoBehaviour {
 
         if (lerping)
         {
-            float dist = (Time.time - startTime) * 15f;
+            float dist = (Time.time - startTime) * 20f;
             float lerpVal = dist / Vector3.Distance(startPos, endPos);
             transform.position = Vector3.Lerp(startPos, endPos, lerpVal);
             transform.localRotation = Quaternion.Lerp(startRot, endRot, lerpVal);
