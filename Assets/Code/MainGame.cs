@@ -12,6 +12,12 @@ public class MainGame : MonoBehaviour {
     private bool isDecoding = false;
     private float nextUpdate = 1;
     private bool cameraActive = false;
+    private Vector3 startPos;
+    private Quaternion startRot;
+    private Vector3 endPos;
+    private Quaternion endRot;
+    private float startTime;
+    private bool lerping = false;
 
     public GameObject button;
     public GameObject camImage;
@@ -47,6 +53,19 @@ public class MainGame : MonoBehaviour {
             nextUpdate = Time.time + 1f;
             decode();
         }
+
+        if (lerping)
+        {
+            float dist = (Time.time - startTime) * 15f;
+            float lerpVal = dist / Vector3.Distance(startPos, endPos);
+            transform.position = Vector3.Lerp(startPos, endPos, lerpVal);
+            transform.localRotation = Quaternion.Lerp(startRot, endRot, lerpVal);
+        }
+        if(transform.position == endPos && transform.rotation == endRot)
+        {
+            lerping = false;
+        }
+
         if(Input.GetKeyDown(KeyCode.B))
         {
             GameObject item = Instantiate(foodItemPrefab, scrollContent.transform);
@@ -101,8 +120,32 @@ public class MainGame : MonoBehaviour {
         else
         {
             cameraActive = true;
-            button.GetComponentInChildren<Text>().text = "Stop Scan";
+            button.GetComponentInChildren<Text>().text = "Stop";
             camImage.GetComponent<Renderer>().enabled = true;
         }
+    }
+    public void moveCamera()
+    {
+        startPos = transform.position;
+        startRot = transform.rotation;
+
+        Transform cam1 = GameObject.Find("CamPos1").transform;
+        Transform cam2 = GameObject.Find("CamPos2").transform;
+        Transform other;
+
+        if(startPos == cam1.position)
+        {
+            other = cam2;
+        }
+        else
+        {
+            other = cam1;
+        }
+
+        endPos = other.position;
+        endRot = other.rotation;
+
+        lerping = true;
+        startTime = Time.time;
     }
 }
