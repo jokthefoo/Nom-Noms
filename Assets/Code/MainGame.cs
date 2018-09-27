@@ -12,10 +12,11 @@ public class MainGame : MonoBehaviour {
     private bool isDecoding = false;
     private float nextUpdate = 1;
     private bool cameraActive = false;
+
     public GameObject button;
     public GameObject camImage;
-    public GameObject displayText;
     public GameObject scrollContent;
+    public GameObject foodItemPrefab;
 
     IEnumerator Start()
     {
@@ -38,7 +39,6 @@ public class MainGame : MonoBehaviour {
             camTexture.Play();
         }
         cameraInitialized = true;
-        displayText.GetComponent<Text>().text = "";
     }
     private void Update()
     {
@@ -46,6 +46,15 @@ public class MainGame : MonoBehaviour {
         {
             nextUpdate = Time.time + 1f;
             decode();
+        }
+        if(Input.GetKeyDown(KeyCode.A))
+        {
+            GameObject item = Instantiate(foodItemPrefab, scrollContent.transform);
+            item.GetComponent<FoodItem>().barcode = "028400275132";
+        }else if (Input.GetKeyDown(KeyCode.B))
+        {
+            GameObject item = Instantiate(foodItemPrefab, scrollContent.transform);
+            item.GetComponent<FoodItem>().barcode = "078742233536";
         }
     }
 
@@ -61,38 +70,12 @@ public class MainGame : MonoBehaviour {
                 var result = barcodeReader.Decode(camTexture.GetPixels32(), camTexture.width, camTexture.height);
                 if (result != null)
                 {
-#if UNITY_EDITOR
-                    Debug.Log("DECODED TEXT FROM QR: " + result.Text);
-                    ResultPoint[] point = result.ResultPoints;
-                    Debug.Log("X: " + point[0].X + " Y: " + point[1].Y);
-#endif
-                    //displayText.GetComponent<Text>().text = result.Text;
-
                     cameraActive = false;
                     camImage.GetComponent<Renderer>().enabled = false;
                     button.GetComponentInChildren<Text>().text = "Scan Barcode";
-                    String foodString = "";
-                    String bacon = "078742233536";
-                    String egg = "028400275132";
-                    if (bacon == result.Text)
-                    {
-                        foodString = "Bacon";
-                    }
-                    else if(egg == result.Text)
-                    {
-                        foodString = "Egg";
-                    }
-                    foreach (Image i in scrollContent.GetComponentsInChildren<Image>())
-                    {
-                        if (i.name == foodString)
-                        {
-                            i.enabled = true;
-                        }
-                        else if(i.name == foodString)
-                        {
-                            i.enabled = true;
-                        }
-                    }
+
+                    GameObject item = Instantiate(foodItemPrefab, scrollContent.transform);
+                    item.GetComponent<FoodItem>().barcode = result.Text;
                 }
                 else
                 {
