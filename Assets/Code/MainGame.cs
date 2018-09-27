@@ -47,11 +47,11 @@ public class MainGame : MonoBehaviour {
             nextUpdate = Time.time + 1f;
             decode();
         }
-        if(Input.GetKeyDown(KeyCode.A))
+        if(Input.GetKeyDown(KeyCode.B))
         {
             GameObject item = Instantiate(foodItemPrefab, scrollContent.transform);
             item.GetComponent<FoodItem>().barcode = "028400275132";
-        }else if (Input.GetKeyDown(KeyCode.B))
+        }else if (Input.GetKeyDown(KeyCode.A))
         {
             GameObject item = Instantiate(foodItemPrefab, scrollContent.transform);
             item.GetComponent<FoodItem>().barcode = "078742233536";

@@ -11,13 +11,13 @@ public class FoodItem : MonoBehaviour {
         get { return _barcode; }
         set { _barcode = value;
             Image im = GetComponent<Image>();
-
+            
             switch (barcode)
             {
-                case "078742233536":
+                case "028400275132":
                     foodName = "bacon";
                     break;
-                case "028400275132":
+                case "078742233536":
                     foodName = "egg";
                     break;
                 default:
