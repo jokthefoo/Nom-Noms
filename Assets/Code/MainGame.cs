@@ -19,7 +19,7 @@ public class MainGame : MonoBehaviour {
     private float startTime;
     private bool lerping = false;
 
-    public GameObject button;
+    public GameObject scanButton;
     public GameObject camImage;
     public GameObject scrollContent;
     public GameObject foodItemPrefab;
@@ -91,7 +91,7 @@ public class MainGame : MonoBehaviour {
                 {
                     cameraActive = false;
                     camImage.GetComponent<Renderer>().enabled = false;
-                    button.GetComponentInChildren<Text>().text = "Scan Barcode";
+                    scanButton.GetComponentInChildren<Text>().text = "Scan Barcode";
 
                     GameObject item = Instantiate(foodItemPrefab, scrollContent.transform);
                     item.GetComponent<FoodItem>().barcode = result.Text;
@@ -114,13 +114,15 @@ public class MainGame : MonoBehaviour {
         if(cameraActive)
         {
             cameraActive = false;
-            button.GetComponentInChildren<Text>().text = "Scan Barcode";
+            hideCanvas();
+            scanButton.GetComponentInChildren<Text>().text = "Scan Barcode";
             camImage.GetComponent<Renderer>().enabled = false;
         }
         else
         {
             cameraActive = true;
-            button.GetComponentInChildren<Text>().text = "Stop";
+            hideCanvas();
+            scanButton.GetComponentInChildren<Text>().text = "Stop";
             camImage.GetComponent<Renderer>().enabled = true;
         }
     }
@@ -147,5 +149,21 @@ public class MainGame : MonoBehaviour {
 
         lerping = true;
         startTime = Time.time;
+    }
+
+    private void hideCanvas()
+    {
+        CanvasGroup grp = scrollContent.transform.parent.parent.parent.GetComponent<CanvasGroup>();
+
+        if(grp.alpha == 1)
+        {
+            grp.alpha = 0;
+            grp.blocksRaycasts = false;
+        }
+        else
+        {
+            grp.alpha = 1;
+            grp.blocksRaycasts = true;
+        }
     }
 }
