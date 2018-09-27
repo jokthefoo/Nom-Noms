@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using ZXing;
 
-public class CamTest : MonoBehaviour {
+public class MainGame : MonoBehaviour {
 
     private WebCamTexture camTexture;
     private IBarcodeReader barcodeReader;
@@ -15,6 +15,7 @@ public class CamTest : MonoBehaviour {
     public GameObject button;
     public GameObject camImage;
     public GameObject displayText;
+    public GameObject scrollContent;
 
     IEnumerator Start()
     {
@@ -65,10 +66,33 @@ public class CamTest : MonoBehaviour {
                     ResultPoint[] point = result.ResultPoints;
                     Debug.Log("X: " + point[0].X + " Y: " + point[1].Y);
 #endif
-                    displayText.GetComponent<Text>().text = result.Text;
+                    //displayText.GetComponent<Text>().text = result.Text;
+
                     cameraActive = false;
                     camImage.GetComponent<Renderer>().enabled = false;
                     button.GetComponentInChildren<Text>().text = "Scan Barcode";
+                    String foodString = "";
+                    String bacon = "078742233536";
+                    String egg = "028400275132";
+                    if (bacon == result.Text)
+                    {
+                        foodString = "Bacon";
+                    }
+                    else if(egg == result.Text)
+                    {
+                        foodString = "Egg";
+                    }
+                    foreach (Image i in scrollContent.GetComponentsInChildren<Image>())
+                    {
+                        if (i.name == foodString)
+                        {
+                            i.enabled = true;
+                        }
+                        else if(i.name == foodString)
+                        {
+                            i.enabled = true;
+                        }
+                    }
                 }
                 else
                 {
