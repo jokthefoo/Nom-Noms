@@ -18,11 +18,15 @@ public class MainGame : MonoBehaviour {
     private Quaternion endRot;
     private float startTime;
     private bool lerping = false;
+    private int camPosNum = 1;
 
     public GameObject scanButton;
     public GameObject camImage;
     public GameObject scrollContent;
     public GameObject foodItemPrefab;
+    public GameObject otherScrollContent;
+    public GameObject foodInfoCanvas;
+    public GameObject fridgeCanvas;
 
     IEnumerator Start()
     {
@@ -56,7 +60,7 @@ public class MainGame : MonoBehaviour {
 
         if (lerping)
         {
-            float dist = (Time.time - startTime) * 20f;
+            float dist = (Time.time - startTime) * 65f;
             float lerpVal = dist / Vector3.Distance(startPos, endPos);
             transform.position = Vector3.Lerp(startPos, endPos, lerpVal);
             transform.localRotation = Quaternion.Lerp(startRot, endRot, lerpVal);
@@ -70,10 +74,13 @@ public class MainGame : MonoBehaviour {
         {
             GameObject item = Instantiate(foodItemPrefab, scrollContent.transform);
             item.GetComponent<FoodItem>().barcode = "028400275132";
-        }else if (Input.GetKeyDown(KeyCode.A))
+            item.GetComponent<FoodItem>().gameInstance = this;
+        }
+        else if (Input.GetKeyDown(KeyCode.A))
         {
             GameObject item = Instantiate(foodItemPrefab, scrollContent.transform);
             item.GetComponent<FoodItem>().barcode = "078742233536";
+            item.GetComponent<FoodItem>().gameInstance = this;
         }
     }
 
@@ -95,6 +102,7 @@ public class MainGame : MonoBehaviour {
 
                     GameObject item = Instantiate(foodItemPrefab, scrollContent.transform);
                     item.GetComponent<FoodItem>().barcode = result.Text;
+                    item.GetComponent<FoodItem>().gameInstance = this;
                 }
                 else
                 {
@@ -114,14 +122,16 @@ public class MainGame : MonoBehaviour {
         if(cameraActive)
         {
             cameraActive = false;
-            hideCanvas();
+            hideShowInventoryCanvas(true, false);
+            hideShowFridgeCanvas(true, false);
             scanButton.GetComponentInChildren<Text>().text = "Scan Barcode";
             camImage.GetComponent<Renderer>().enabled = false;
         }
         else
         {
             cameraActive = true;
-            hideCanvas();
+            hideShowInventoryCanvas(true, true);
+            hideShowFridgeCanvas(true, true);
             scanButton.GetComponentInChildren<Text>().text = "Stop";
             camImage.GetComponent<Renderer>().enabled = true;
         }
@@ -137,10 +147,15 @@ public class MainGame : MonoBehaviour {
 
         if(startPos == cam1.position)
         {
+            camPosNum = 2;
             other = cam2;
+            hideShowInventoryCanvas(false, true);
         }
         else
         {
+            camPosNum = 1;
+            hideShowInventoryCanvas(false, false);
+            hideShowFridgeCanvas(false, true);
             other = cam1;
         }
 
@@ -151,11 +166,43 @@ public class MainGame : MonoBehaviour {
         startTime = Time.time;
     }
 
-    private void hideCanvas()
+    private void hideShowInventoryCanvas(bool hideButton, bool hide)
     {
-        CanvasGroup grp = scrollContent.transform.parent.parent.parent.GetComponent<CanvasGroup>();
+        CanvasGroup grp;
+        if (hideButton)
+        {
+            grp = scrollContent.transform.parent.parent.parent.parent.GetComponent<CanvasGroup>();
+        }
+        else
+        {
+            grp = scrollContent.transform.parent.parent.parent.GetComponent<CanvasGroup>();
+        }
 
-        if(grp.alpha == 1)
+        if(hide)
+        {
+            grp.alpha = 0;
+            grp.blocksRaycasts = false;
+        }
+        else
+        {
+            grp.alpha = 1;
+            grp.blocksRaycasts = true;
+        }
+    }
+
+    private void hideShowFridgeCanvas(bool fridge, bool hide)
+    {
+        CanvasGroup grp;
+        if (fridge)
+        {
+            grp = fridgeCanvas.GetComponent<CanvasGroup>();
+        }
+        else
+        {
+            grp = foodInfoCanvas.GetComponent<CanvasGroup>();
+        }
+
+        if(hide)
         {
             grp.alpha = 0;
             grp.blocksRaycasts = false;
