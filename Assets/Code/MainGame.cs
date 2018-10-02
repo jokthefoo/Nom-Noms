@@ -12,12 +12,12 @@ public class MainGame : MonoBehaviour {
     private bool isDecoding = false;
     private float nextUpdate = 1;
     private bool cameraActive = false;
-    private Vector3 startPos;
+    /*private Vector3 startPos;
     private Quaternion startRot;
     private Vector3 endPos;
     private Quaternion endRot;
-    private float startTime;
-    private bool lerping = false;
+    private float startTime;*/
+    //private bool lerping = false;
 
     public GameObject scanButton;
     public GameObject camImage;
@@ -26,6 +26,7 @@ public class MainGame : MonoBehaviour {
     public GameObject otherScrollContent;
     public GameObject foodInfoCanvas;
     public GameObject fridgeCanvas;
+    public GameObject camButton;
 
     IEnumerator Start()
     {
@@ -52,7 +53,7 @@ public class MainGame : MonoBehaviour {
             nextUpdate = Time.time + 1f;
             decode();
         }
-
+        /*
         if (lerping)
         {
             float dist = (Time.time - startTime) * 65f;
@@ -63,7 +64,7 @@ public class MainGame : MonoBehaviour {
         if (transform.position == endPos && transform.rotation == endRot)
         {
             lerping = false;
-        }
+        }*/
 
         if(Input.GetKeyDown(KeyCode.Y))
         {
@@ -169,6 +170,21 @@ public class MainGame : MonoBehaviour {
 
     public void moveCamera()
     {
+        if(transform.position.x == 0)
+        {
+            camButton.GetComponentInChildren<Text>().text = "Close Fridge";
+            transform.position = new Vector3(30, 0, 0);
+            hideShowInventoryCanvas(false, true);
+        }
+        else
+        {
+            hideShowInventoryCanvas(false, false);
+            hideShowFridgeCanvas(false, true);
+            camButton.GetComponentInChildren<Text>().text = "Open Fridge";
+            transform.position = new Vector3(0, 0, 0);
+        }
+
+        /* old
         startPos = transform.position;
         startRot = transform.rotation;
 
@@ -193,6 +209,7 @@ public class MainGame : MonoBehaviour {
 
         lerping = true;
         startTime = Time.time;
+        */
     }
 
     private void hideShowInventoryCanvas(bool hideButton, bool hide)

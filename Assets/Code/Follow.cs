@@ -13,7 +13,7 @@ public class Follow : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         transform.position = mainCamera.transform.position;
-        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 1);
+        transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + .5f);
         transform.rotation = Quaternion.Euler(90 + mainCamera.transform.rotation.eulerAngles.x,
             mainCamera.transform.rotation.eulerAngles.y,
             mainCamera.transform.rotation.eulerAngles.z - 180);

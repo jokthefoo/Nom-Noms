@@ -10,9 +10,13 @@ public class FoodItem : MonoBehaviour {
 
     private string foodName = "";
     private string desc = "i am ";
-    private int fatNum;
-    private static int nooblesHP = 5;
-    private GameObject fat, norm, starve;
+    private int stamina, mood, strength, magic, hp;
+    private static int nbHP = 500;
+    private static int nbStamina = 5;
+    private static int nbMood = 5;
+    private static int nbStrength = 5;
+    private static int nbMagic = 5;
+    //private GameObject fat, norm, starve;
 
     public string barcode
     {
@@ -24,63 +28,111 @@ public class FoodItem : MonoBehaviour {
             {
                 case "012345678905":
                     foodName = "Apple";
+                    stamina = 0;
+                    mood = 1;
+                    strength = 0;
+                    magic = 3;
+                    hp = 100;
                     desc += foodName;
-                    fatNum = -2;
                     break;
                 case "012345678912":
                     foodName = "Burger";
                     desc += foodName;
-                    fatNum = 2;
+                    stamina = 2;
+                    mood = 7;
+                    strength = 4;
+                    magic = 0;
+                    hp = -200;
                     break;
                 case "012345678929":
                     foodName = "Corn Dog";
                     desc += "Dog, Corn Dog.";
-                    fatNum = 2;
+                    stamina = 2;
+                    mood = 7;
+                    strength = 4;
+                    magic = 0;
+                    hp = -200;
                     break;
                 case "012345678936":
                     foodName = "Donut";
                     desc += "Donut";
-                    fatNum = 2;
+                    stamina = 4;
+                    mood = 8;
+                    strength = 0;
+                    magic = 0;
+                    hp = -150;
                     break;
                 case "012345678943":
                     foodName = "Egg";
-                    desc += "Egg, i came first";
-                    fatNum = -4;
+                    desc += "egg";
+                    stamina = 0;
+                    mood = 1;
+                    strength = 0;
+                    magic = 0;
+                    hp = 10;
                     break;
                 case "012345678950":
                     foodName = "OJJ";
                     desc += "Orange Juice";
-                    fatNum = -2;
+                    stamina = 0;
+                    mood = 3;
+                    strength = 0;
+                    magic = 2;
+                    hp = 0;
                     break;
                 case "012345678967":
                     foodName = "Orange";
-                    desc += "Orange, rhymes with Orange";
-                    fatNum = -2;
+                    desc += "Orange, rhymes with...";
+                    stamina = 0;
+                    mood = 1;
+                    strength = 0;
+                    magic = 3;
+                    hp = 100;
                     break;
                 case "012345678974":
                     foodName = "Pizza";
                     desc += "Pizza, America's favorite vegetable";
-                    fatNum = 2;
+                    stamina = 3;
+                    mood = 10;
+                    strength = 6;
+                    magic = 1;
+                    hp = -225;
                     break;
                 case "012345678981":
                     foodName = "Ramen";
                     desc += foodName;
-                    fatNum = 2;
+                    stamina = 3;
+                    mood = 2;
+                    strength = 1;
+                    magic = 0;
+                    hp = -25;
                     break;
                 case "012345678998":
                     foodName = "Soda";
                     desc += foodName;
-                    fatNum = 2;
+                    stamina = 1;
+                    mood = 7;
+                    strength = 0;
+                    magic = 0;
+                    hp = -200;
                     break;
                 case "000000000017":
                     foodName = "Water";
                     desc += foodName;
-                    fatNum = -2;
+                    stamina = 0;
+                    mood = 0;
+                    strength = 0;
+                    magic = 0;
+                    hp = 50;
                     break;
                 default:
                     foodName = "Bacon";
                     desc += foodName;
-                    fatNum = 4;
+                    stamina = 6;
+                    mood = 6;
+                    strength = 1;
+                    magic = 0;
+                    hp = -250;
                     break;
             }
 
@@ -102,9 +154,10 @@ public class FoodItem : MonoBehaviour {
 	void Start () {
         GetComponent<Button>().onClick.AddListener(() => clickedOn());
 
+        /*
         fat = GameObject.Find("Fat");
         norm = GameObject.Find("Normal");
-        starve = GameObject.Find("Starving");
+        starve = GameObject.Find("Starving");*/
 
         while (gameInstance == null) { }
         while(barcode == "") { }
@@ -137,35 +190,37 @@ public class FoodItem : MonoBehaviour {
         else
         {
             // Show stats
-            nooblesHP += fatNum;
+            nbHP += hp;
+            nbMagic += magic;
+            nbMood += mood;
+            nbStamina += stamina;
+            nbStrength += strength;
 
-            if (nooblesHP > 10)
+            if(nbHP < 0)
             {
-                fat.GetComponent<Renderer>().enabled = true;
-                norm.GetComponent<Renderer>().enabled = false;
-                starve.GetComponent<Renderer>().enabled = false;
+                nbHP = 0;
             }
-            else if(nooblesHP < 0)
+            else if(nbHP > 1000)
             {
-                fat.GetComponent<Renderer>().enabled = false;
-                norm.GetComponent<Renderer>().enabled = false;
-                starve.GetComponent<Renderer>().enabled = true;
-            }
-            else
-            {
-                fat.GetComponent<Renderer>().enabled = false;
-                norm.GetComponent<Renderer>().enabled = true;
-                starve.GetComponent<Renderer>().enabled = false;
+                nbHP = 1000;
             }
 
-            if(nooblesHP > 15)
+            if(nbHP < 200)
             {
-                nooblesHP = 15;
+                //starving
             }
-            else if(nooblesHP < -5)
+            else if(nbHP > 800)
             {
-                nooblesHP = -5;
+                //thicc
             }
+
+            int sum = nbMagic + nbMood + nbStamina + nbStrength;
+            int sub = (sum - 20) / 4;
+
+            nbMagic += sub;
+            nbMood += sub;
+            nbStamina += sub;
+            nbStrength += sub;
 
             Destroy(this.gameObject);
             Destroy(fridgeItem);
