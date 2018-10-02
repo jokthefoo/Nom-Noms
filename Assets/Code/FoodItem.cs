@@ -175,8 +175,18 @@ public class FoodItem : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+        /*
+		if(anim)
+        {
+            float dist = (Time.time - startTime) * 65f;
+            float lerpVal = dist / Vector3.Distance(startPos, endPos);
+            transform.position = Vector3.Lerp(startPos, endPos, lerpVal);
+            transform.localRotation = Quaternion.Lerp(startRot, endRot, lerpVal);
+        }*/
+    }
+
+    private bool anim = false;
+    private float startTime;
 
     public void clickedOn()
     {
@@ -222,7 +232,10 @@ public class FoodItem : MonoBehaviour {
             nbStamina += sub;
             nbStrength += sub;
 
-            Destroy(this.gameObject);
+            //Destroy(this.gameObject);
+            anim = true;
+            startTime = Time.time;
+
             Destroy(fridgeItem);
         }
     }
