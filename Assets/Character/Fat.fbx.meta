@@ -1,0 +1,212 @@
+fileFormatVersion: 2
+guid: 153baacdaeafdf5428096c7663a25635
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Bigmouth:Bigmouth:pCube1
+    100002: Bigmouth:Bigmouth:pHelix2
+    100004: Bigmouth:Bigmouth:pHelix3
+    100006: Bigmouth:Bigmouth:polySurface1
+    100008: Bigmouth:Bigmouth:polySurface100
+    100010: Bigmouth:Bigmouth:polySurface101
+    100012: Bigmouth:Bigmouth:polySurface101 1
+    100014: Bigmouth:Bigmouth:polySurface102
+    100016: Bigmouth:Bigmouth:polySurface103
+    100018: Bigmouth:Bigmouth:polySurface104
+    100020: Bigmouth:Bigmouth:polySurface105
+    100022: Bigmouth:Bigmouth:polySurface62
+    100024: Bigmouth:Bigmouth:polySurface64
+    100026: Bigmouth:Bigmouth:polySurface70
+    100028: Bigmouth:Bigmouth:polySurface70 1
+    100030: Bigmouth:Bigmouth:polySurface71
+    100032: Bigmouth:Bigmouth:polySurface85
+    100034: Bigmouth:Bigmouth:polySurface85 1
+    100036: Bigmouth:Bigmouth:polySurface86
+    100038: Bigmouth:Bigmouth:polySurface87
+    100040: Bigmouth:Bigmouth:polySurface88
+    100042: Bigmouth:Bigmouth:polySurface89
+    100044: Bigmouth:Bigmouth:polySurface90
+    100046: Bigmouth:Bigmouth:polySurface90 1
+    100048: Bigmouth:Bigmouth:polySurface91
+    100050: Bigmouth:Bigmouth:polySurface93
+    100052: Bigmouth:Bigmouth:polySurface96
+    100054: Bigmouth:Bigmouth:polySurface97
+    100056: Bigmouth:Bigmouth:polySurface98
+    100058: Bigmouth:Bigmouth:polySurface99
+    100060: Bigmouth:Bigmouth:transform16
+    100062: Bigmouth:Bigmouth:transform17
+    100064: Bigmouth:Bigmouth:transform18
+    100066: Bigmouth:Bigmouth:transform19
+    100068: Bigmouth:Bigmouth:transform20
+    100070: Bigmouth:Bigmouth:transform21
+    100072: Bigmouth:Bigmouth:transform22
+    100074: Bigmouth:Bigmouth:transform23
+    100076: Bigmouth:Bigmouth:transform27
+    100078: Bigmouth:Bigmouth:transform28
+    100080: Bigmouth:Bigmouth:transform29
+    100082: Bigmouth:Bigmouth:transform30
+    100084: Bigmouth:Bigmouth:transform31
+    100086: Bigmouth:Bigmouth:transform32
+    100088: Bigmouth:Bigmouth:transform33
+    100090: Bigmouth:Bigmouth:transform34
+    100092: Bigmouth:Bigmouth:transform35
+    100094: Bigmouth:Bigmouth:transform44
+    100096: Bigmouth:Bigmouth:transform45
+    100098: Bigmouth:Bigmouth:transform46
+    100100: Bigmouth:Bigmouth:transform47
+    100102: Bigmouth:Bigmouth:transform48
+    100104: Bigmouth:Bigmouth:transform49
+    100106: Bigmouth:Bigmouth:transform50
+    100108: Bigmouth:Bigmouth:transform51
+    100110: Bigmouth:Bigmouth:transform52
+    100112: Bigmouth:Bigmouth:transform53
+    100114: Bigmouth:Bigmouth:transform54
+    100116: Bigmouth:Bigmouth:transform7
+    100118: //RootNode
+    400000: Bigmouth:Bigmouth:pCube1
+    400002: Bigmouth:Bigmouth:pHelix2
+    400004: Bigmouth:Bigmouth:pHelix3
+    400006: Bigmouth:Bigmouth:polySurface1
+    400008: Bigmouth:Bigmouth:polySurface100
+    400010: Bigmouth:Bigmouth:polySurface101
+    400012: Bigmouth:Bigmouth:polySurface101 1
+    400014: Bigmouth:Bigmouth:polySurface102
+    400016: Bigmouth:Bigmouth:polySurface103
+    400018: Bigmouth:Bigmouth:polySurface104
+    400020: Bigmouth:Bigmouth:polySurface105
+    400022: Bigmouth:Bigmouth:polySurface62
+    400024: Bigmouth:Bigmouth:polySurface64
+    400026: Bigmouth:Bigmouth:polySurface70
+    400028: Bigmouth:Bigmouth:polySurface70 1
+    400030: Bigmouth:Bigmouth:polySurface71
+    400032: Bigmouth:Bigmouth:polySurface85
+    400034: Bigmouth:Bigmouth:polySurface85 1
+    400036: Bigmouth:Bigmouth:polySurface86
+    400038: Bigmouth:Bigmouth:polySurface87
+    400040: Bigmouth:Bigmouth:polySurface88
+    400042: Bigmouth:Bigmouth:polySurface89
+    400044: Bigmouth:Bigmouth:polySurface90
+    400046: Bigmouth:Bigmouth:polySurface90 1
+    400048: Bigmouth:Bigmouth:polySurface91
+    400050: Bigmouth:Bigmouth:polySurface93
+    400052: Bigmouth:Bigmouth:polySurface96
+    400054: Bigmouth:Bigmouth:polySurface97
+    400056: Bigmouth:Bigmouth:polySurface98
+    400058: Bigmouth:Bigmouth:polySurface99
+    400060: Bigmouth:Bigmouth:transform16
+    400062: Bigmouth:Bigmouth:transform17
+    400064: Bigmouth:Bigmouth:transform18
+    400066: Bigmouth:Bigmouth:transform19
+    400068: Bigmouth:Bigmouth:transform20
+    400070: Bigmouth:Bigmouth:transform21
+    400072: Bigmouth:Bigmouth:transform22
+    400074: Bigmouth:Bigmouth:transform23
+    400076: Bigmouth:Bigmouth:transform27
+    400078: Bigmouth:Bigmouth:transform28
+    400080: Bigmouth:Bigmouth:transform29
+    400082: Bigmouth:Bigmouth:transform30
+    400084: Bigmouth:Bigmouth:transform31
+    400086: Bigmouth:Bigmouth:transform32
+    400088: Bigmouth:Bigmouth:transform33
+    400090: Bigmouth:Bigmouth:transform34
+    400092: Bigmouth:Bigmouth:transform35
+    400094: Bigmouth:Bigmouth:transform44
+    400096: Bigmouth:Bigmouth:transform45
+    400098: Bigmouth:Bigmouth:transform46
+    400100: Bigmouth:Bigmouth:transform47
+    400102: Bigmouth:Bigmouth:transform48
+    400104: Bigmouth:Bigmouth:transform49
+    400106: Bigmouth:Bigmouth:transform50
+    400108: Bigmouth:Bigmouth:transform51
+    400110: Bigmouth:Bigmouth:transform52
+    400112: Bigmouth:Bigmouth:transform53
+    400114: Bigmouth:Bigmouth:transform54
+    400116: Bigmouth:Bigmouth:transform7
+    400118: //RootNode
+    2100000: Bigmouth_lambert2
+    2300000: Bigmouth:Bigmouth:polySurface101
+    3300000: Bigmouth:Bigmouth:polySurface101
+    4300000: Bigmouth:Bigmouth:polySurface101
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
