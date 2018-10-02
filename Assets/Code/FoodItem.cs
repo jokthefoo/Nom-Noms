@@ -10,6 +10,9 @@ public class FoodItem : MonoBehaviour {
 
     private string foodName = "";
     private string desc = "i am ";
+    private int fatNum;
+    private static int nooblesHP = 5;
+    private GameObject fat, norm, starve;
 
     public string barcode
     {
@@ -19,17 +22,65 @@ public class FoodItem : MonoBehaviour {
 
             switch (barcode)
             {
-                case "028400275132":
-                    foodName = "bacon";
+                case "012345678905":
+                    foodName = "Apple";
                     desc += foodName;
+                    fatNum = -2;
                     break;
-                case "078742233536":
-                    foodName = "egg";
+                case "012345678912":
+                    foodName = "Burger";
                     desc += foodName;
+                    fatNum = 2;
+                    break;
+                case "012345678929":
+                    foodName = "Corn Dog";
+                    desc += "Dog, Corn Dog.";
+                    fatNum = 2;
+                    break;
+                case "012345678936":
+                    foodName = "Donut";
+                    desc += "Donut";
+                    fatNum = 2;
+                    break;
+                case "012345678943":
+                    foodName = "Egg";
+                    desc += "Egg, i came first";
+                    fatNum = -4;
+                    break;
+                case "012345678950":
+                    foodName = "OJJ";
+                    desc += "Orange Juice";
+                    fatNum = -2;
+                    break;
+                case "012345678967":
+                    foodName = "Orange";
+                    desc += "Orange, rhymes with Orange";
+                    fatNum = -2;
+                    break;
+                case "012345678974":
+                    foodName = "Pizza";
+                    desc += "Pizza, America's favorite vegetable";
+                    fatNum = 2;
+                    break;
+                case "012345678981":
+                    foodName = "Ramen";
+                    desc += foodName;
+                    fatNum = 2;
+                    break;
+                case "012345678998":
+                    foodName = "Soda";
+                    desc += foodName;
+                    fatNum = 2;
+                    break;
+                case "000000000017":
+                    foodName = "Water";
+                    desc += foodName;
+                    fatNum = -2;
                     break;
                 default:
-                    foodName = "bacon";
+                    foodName = "Bacon";
                     desc += foodName;
+                    fatNum = 4;
                     break;
             }
 
@@ -51,7 +102,11 @@ public class FoodItem : MonoBehaviour {
 	void Start () {
         GetComponent<Button>().onClick.AddListener(() => clickedOn());
 
-        while(gameInstance == null) { }
+        fat = GameObject.Find("Fat");
+        norm = GameObject.Find("Normal");
+        starve = GameObject.Find("Starving");
+
+        while (gameInstance == null) { }
         while(barcode == "") { }
 
         if (!fridge)
@@ -82,20 +137,36 @@ public class FoodItem : MonoBehaviour {
         else
         {
             // Show stats
-            GameObject noobles = GameObject.Find("Sphere");
-            switch (foodName)
+            nooblesHP += fatNum;
+
+            if (nooblesHP > 10)
             {
-                case "bacon":
-                    noobles.GetComponent<MeshRenderer>().material.color = Color.red;
-                    noobles.GetComponent<Transform>().localScale *= 1.3f;
-                    break;
-                case "egg":
-                    noobles.GetComponent<MeshRenderer>().material.color = Color.yellow;
-                    noobles.GetComponent<Transform>().localScale *= .8f;
-                    break;
-                default:
-                    break;
+                fat.GetComponent<Renderer>().enabled = true;
+                norm.GetComponent<Renderer>().enabled = false;
+                starve.GetComponent<Renderer>().enabled = false;
             }
+            else if(nooblesHP < 0)
+            {
+                fat.GetComponent<Renderer>().enabled = false;
+                norm.GetComponent<Renderer>().enabled = false;
+                starve.GetComponent<Renderer>().enabled = true;
+            }
+            else
+            {
+                fat.GetComponent<Renderer>().enabled = false;
+                norm.GetComponent<Renderer>().enabled = true;
+                starve.GetComponent<Renderer>().enabled = false;
+            }
+
+            if(nooblesHP > 15)
+            {
+                nooblesHP = 15;
+            }
+            else if(nooblesHP < -5)
+            {
+                nooblesHP = -5;
+            }
+
             Destroy(this.gameObject);
             Destroy(fridgeItem);
         }

@@ -18,7 +18,6 @@ public class MainGame : MonoBehaviour {
     private Quaternion endRot;
     private float startTime;
     private bool lerping = false;
-    private int camPosNum = 1;
 
     public GameObject scanButton;
     public GameObject camImage;
@@ -39,15 +38,11 @@ public class MainGame : MonoBehaviour {
         camTexture.requestedWidth = Screen.width;
         barcodeReader = new BarcodeReader();
 
-        float height = 2.0f * Mathf.Tan(0.5f * Camera.main.fieldOfView * Mathf.Deg2Rad) * 1.3f;
+        float height = 2.0f * Mathf.Tan(0.5f * Camera.main.fieldOfView * Mathf.Deg2Rad) * 1.2f;
         float width = height * Screen.width / Screen.height;
 
         camImage.transform.localScale = new Vector3(width, 1, height);
         camImage.GetComponent<Renderer>().material.mainTexture = camTexture;
-        if (camTexture != null)
-        {
-            camTexture.Play();
-        }
         cameraInitialized = true;
     }
     private void Update()
@@ -65,21 +60,45 @@ public class MainGame : MonoBehaviour {
             transform.position = Vector3.Lerp(startPos, endPos, lerpVal);
             transform.localRotation = Quaternion.Lerp(startRot, endRot, lerpVal);
         }
-        if(transform.position == endPos && transform.rotation == endRot)
+        if (transform.position == endPos && transform.rotation == endRot)
         {
             lerping = false;
         }
 
-        if(Input.GetKeyDown(KeyCode.B))
+        if(Input.GetKeyDown(KeyCode.Y))
         {
             GameObject item = Instantiate(foodItemPrefab, scrollContent.transform);
             item.GetComponent<FoodItem>().barcode = "028400275132";
             item.GetComponent<FoodItem>().gameInstance = this;
         }
-        else if (Input.GetKeyDown(KeyCode.A))
+        else if (Input.GetKeyDown(KeyCode.W))
         {
             GameObject item = Instantiate(foodItemPrefab, scrollContent.transform);
-            item.GetComponent<FoodItem>().barcode = "078742233536";
+            item.GetComponent<FoodItem>().barcode = "000000000017";
+            item.GetComponent<FoodItem>().gameInstance = this;
+        }else if(Input.GetKeyDown(KeyCode.Q))
+        {
+
+            GameObject item = Instantiate(foodItemPrefab, scrollContent.transform);
+            item.GetComponent<FoodItem>().barcode = "012345678967";
+            item.GetComponent<FoodItem>().gameInstance = this;
+        }
+        else if (Input.GetKeyDown(KeyCode.T))
+        {
+            GameObject item = Instantiate(foodItemPrefab, scrollContent.transform);
+            item.GetComponent<FoodItem>().barcode = "012345678974";
+            item.GetComponent<FoodItem>().gameInstance = this;
+        }
+        else if (Input.GetKeyDown(KeyCode.E))
+        {
+            GameObject item = Instantiate(foodItemPrefab, scrollContent.transform);
+            item.GetComponent<FoodItem>().barcode = "012345678981";
+            item.GetComponent<FoodItem>().gameInstance = this;
+        }
+        else if (Input.GetKeyDown(KeyCode.R))
+        {
+            GameObject item = Instantiate(foodItemPrefab, scrollContent.transform);
+            item.GetComponent<FoodItem>().barcode = "012345678998";
             item.GetComponent<FoodItem>().gameInstance = this;
         }
     }
@@ -96,9 +115,7 @@ public class MainGame : MonoBehaviour {
                 var result = barcodeReader.Decode(camTexture.GetPixels32(), camTexture.width, camTexture.height);
                 if (result != null)
                 {
-                    cameraActive = false;
-                    camImage.GetComponent<Renderer>().enabled = false;
-                    scanButton.GetComponentInChildren<Text>().text = "Scan Barcode";
+                    cameraDeactivate();
 
                     GameObject item = Instantiate(foodItemPrefab, scrollContent.transform);
                     item.GetComponent<FoodItem>().barcode = result.Text;
@@ -121,14 +138,14 @@ public class MainGame : MonoBehaviour {
     {
         if(cameraActive)
         {
-            cameraActive = false;
-            hideShowInventoryCanvas(true, false);
-            hideShowFridgeCanvas(true, false);
-            scanButton.GetComponentInChildren<Text>().text = "Scan Barcode";
-            camImage.GetComponent<Renderer>().enabled = false;
+            cameraDeactivate();
         }
         else
         {
+            if (camTexture != null)
+            {
+                camTexture.Play();
+            }
             cameraActive = true;
             hideShowInventoryCanvas(true, true);
             hideShowFridgeCanvas(true, true);
@@ -136,6 +153,20 @@ public class MainGame : MonoBehaviour {
             camImage.GetComponent<Renderer>().enabled = true;
         }
     }
+
+    private void cameraDeactivate()
+    {
+        if (camTexture != null)
+        {
+            camTexture.Stop();
+        }
+        cameraActive = false;
+        hideShowInventoryCanvas(true, false);
+        hideShowFridgeCanvas(true, false);
+        scanButton.GetComponentInChildren<Text>().text = "Scan Barcode";
+        camImage.GetComponent<Renderer>().enabled = false;
+    }
+
     public void moveCamera()
     {
         startPos = transform.position;
@@ -147,13 +178,11 @@ public class MainGame : MonoBehaviour {
 
         if(startPos == cam1.position)
         {
-            camPosNum = 2;
             other = cam2;
             hideShowInventoryCanvas(false, true);
         }
         else
         {
-            camPosNum = 1;
             hideShowInventoryCanvas(false, false);
             hideShowFridgeCanvas(false, true);
             other = cam1;

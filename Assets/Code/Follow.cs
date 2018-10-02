@@ -15,7 +15,7 @@ public class Follow : MonoBehaviour {
         transform.position = mainCamera.transform.position;
         transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + 1);
         transform.rotation = Quaternion.Euler(90 + mainCamera.transform.rotation.eulerAngles.x,
-            mainCamera.transform.rotation.eulerAngles.y + 180,
-            mainCamera.transform.rotation.eulerAngles.z);
+            mainCamera.transform.rotation.eulerAngles.y,
+            mainCamera.transform.rotation.eulerAngles.z - 180);
 	}
 }
