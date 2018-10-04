@@ -230,7 +230,12 @@ public class FoodItem : MonoBehaviour {
             noobles.nbStamina -= sub;
             noobles.nbStrength -= sub;
 
-            if(noobles.nbMagic > 3 && noobles.nbMood > 3 && noobles.nbStamina > 3 && noobles.nbStrength > 3)
+            noobles.nbMagic = Mathf.Clamp(noobles.nbMagic, 0, 20);
+            noobles.nbMood = Mathf.Clamp(noobles.nbMood, 0, 20);
+            noobles.nbStamina = Mathf.Clamp(noobles.nbStamina, 0, 20);
+            noobles.nbStrength = Mathf.Clamp(noobles.nbStrength, 0, 20);
+            
+            if (noobles.nbMagic > 3 && noobles.nbMood > 3 && noobles.nbStamina > 3 && noobles.nbStrength > 3)
             {
                 //Happy
                 noobles.showEmotion(0);
@@ -259,8 +264,9 @@ public class FoodItem : MonoBehaviour {
             //Destroy(this.gameObject);
             anim = true;
             startTime = Time.time;
-            transform.parent = transform.parent.parent.parent.parent.parent.parent;
+            transform.SetParent(transform.parent.parent.parent.parent.parent.parent);
             transform.position = startPos;
+            noobles.declareChange();
 
             Destroy(fridgeItem);
         }

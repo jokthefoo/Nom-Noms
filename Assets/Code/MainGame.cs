@@ -28,6 +28,8 @@ public class MainGame : MonoBehaviour {
     public GameObject fridgeCanvas;
     public GameObject camButton;
 
+    private GameObject Noobles;
+
     IEnumerator Start()
     {
         Screen.orientation = ScreenOrientation.LandscapeLeft;
@@ -45,6 +47,8 @@ public class MainGame : MonoBehaviour {
         camImage.transform.localScale = new Vector3(width, 1, height);
         camImage.GetComponent<Renderer>().material.mainTexture = camTexture;
         cameraInitialized = true;
+
+        Noobles = GameObject.Find("Noobles");
     }
     private void Update()
     {
@@ -147,6 +151,7 @@ public class MainGame : MonoBehaviour {
             {
                 camTexture.Play();
             }
+            Noobles.GetComponent<Renderer>().enabled = false;
             cameraActive = true;
             hideShowInventoryCanvas(true, true);
             hideShowFridgeCanvas(true, true);
@@ -161,6 +166,7 @@ public class MainGame : MonoBehaviour {
         {
             camTexture.Stop();
         }
+        Noobles.GetComponent<Renderer>().enabled = true;
         cameraActive = false;
         hideShowInventoryCanvas(true, false);
         hideShowFridgeCanvas(true, false);
