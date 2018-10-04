@@ -69,38 +69,38 @@ public class MainGame : MonoBehaviour {
         if(Input.GetKeyDown(KeyCode.Y))
         {
             GameObject item = Instantiate(foodItemPrefab, scrollContent.transform);
-            item.GetComponent<FoodItem>().barcode = "028400275132";
             item.GetComponent<FoodItem>().gameInstance = this;
+            item.GetComponent<FoodItem>().barcode = "028400275132";
         }
         else if (Input.GetKeyDown(KeyCode.W))
         {
             GameObject item = Instantiate(foodItemPrefab, scrollContent.transform);
-            item.GetComponent<FoodItem>().barcode = "000000000017";
             item.GetComponent<FoodItem>().gameInstance = this;
+            item.GetComponent<FoodItem>().barcode = "000000000017";
         }else if(Input.GetKeyDown(KeyCode.Q))
         {
 
             GameObject item = Instantiate(foodItemPrefab, scrollContent.transform);
-            item.GetComponent<FoodItem>().barcode = "012345678967";
             item.GetComponent<FoodItem>().gameInstance = this;
+            item.GetComponent<FoodItem>().barcode = "012345678967";
         }
         else if (Input.GetKeyDown(KeyCode.T))
         {
             GameObject item = Instantiate(foodItemPrefab, scrollContent.transform);
-            item.GetComponent<FoodItem>().barcode = "012345678974";
             item.GetComponent<FoodItem>().gameInstance = this;
+            item.GetComponent<FoodItem>().barcode = "012345678974";
         }
         else if (Input.GetKeyDown(KeyCode.E))
         {
             GameObject item = Instantiate(foodItemPrefab, scrollContent.transform);
-            item.GetComponent<FoodItem>().barcode = "012345678981";
             item.GetComponent<FoodItem>().gameInstance = this;
+            item.GetComponent<FoodItem>().barcode = "012345678981";
         }
         else if (Input.GetKeyDown(KeyCode.R))
         {
             GameObject item = Instantiate(foodItemPrefab, scrollContent.transform);
-            item.GetComponent<FoodItem>().barcode = "012345678998";
             item.GetComponent<FoodItem>().gameInstance = this;
+            item.GetComponent<FoodItem>().barcode = "012345678998";
         }
     }
 
@@ -119,8 +119,8 @@ public class MainGame : MonoBehaviour {
                     cameraDeactivate();
 
                     GameObject item = Instantiate(foodItemPrefab, scrollContent.transform);
-                    item.GetComponent<FoodItem>().barcode = result.Text;
                     item.GetComponent<FoodItem>().gameInstance = this;
+                    item.GetComponent<FoodItem>().barcode = result.Text;
                 }
                 else
                 {

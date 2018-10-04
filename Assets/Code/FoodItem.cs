@@ -10,12 +10,16 @@ public class FoodItem : MonoBehaviour {
 
     private string foodName = "";
     private string desc = "i am ";
+
     private int stamina, mood, strength, magic, hp;
-    private static int nbHP = 500;
-    private static int nbStamina = 5;
-    private static int nbMood = 5;
-    private static int nbStrength = 5;
-    private static int nbMagic = 5;
+
+    private bool anim = false;
+    private float startTime;
+    private string _barcode = "";
+
+    private Vector3 startPos;
+    private Vector3 endPos;
+    private Noobles noobles;
     //private GameObject fat, norm, starve;
 
     public string barcode
@@ -146,48 +150,42 @@ public class FoodItem : MonoBehaviour {
             }
 
             im.enabled = true;
+
+            if (!fridge)
+            {
+                GameObject item = Instantiate(gameInstance.foodItemPrefab, gameInstance.otherScrollContent.transform);
+                item.GetComponent<FoodItem>().fridge = true;
+                item.GetComponent<FoodItem>().barcode = barcode;
+                item.GetComponent<FoodItem>().gameInstance = gameInstance;
+
+                fridgeItem = item;
+            }
         }
     }
-    private string _barcode = "";
-
 	// Use this for initialization
 	void Start () {
         GetComponent<Button>().onClick.AddListener(() => clickedOn());
-
-        /*
-        fat = GameObject.Find("Fat");
-        norm = GameObject.Find("Normal");
-        starve = GameObject.Find("Starving");*/
-
-        while (gameInstance == null) { }
-        while(barcode == "") { }
-
-        if (!fridge)
-        {
-            GameObject item = Instantiate(gameInstance.foodItemPrefab, gameInstance.otherScrollContent.transform);
-            item.GetComponent<FoodItem>().barcode = barcode;
-            item.GetComponent<FoodItem>().fridge = true;
-            item.GetComponent<FoodItem>().gameInstance = gameInstance;
-
-            fridgeItem = item;
-        }
+        startPos = GameObject.Find("DropPos").transform.position;
+        endPos = GameObject.Find("Noobles").transform.position;
+        noobles = GameObject.Find("Noobles").GetComponent<Noobles>();
     }
 	
 	// Update is called once per frame
 	void Update () {
-        /*
+        
 		if(anim)
         {
-            float dist = (Time.time - startTime) * 65f;
-            float lerpVal = dist / Vector3.Distance(startPos, endPos);
+            float dist = (Time.time - startTime) * 10f;
+            float lerpVal = dist / Vector3.Distance(startPos, Vector3.zero);
             transform.position = Vector3.Lerp(startPos, endPos, lerpVal);
-            transform.localRotation = Quaternion.Lerp(startRot, endRot, lerpVal);
-        }*/
+        }
+        if(transform.position == endPos)
+        {
+            anim = false;
+            Destroy(this.gameObject);
+        }
     }
-
-    private bool anim = false;
-    private float startTime;
-
+       
     public void clickedOn()
     {
         if(fridge)
@@ -200,41 +198,69 @@ public class FoodItem : MonoBehaviour {
         else
         {
             // Show stats
-            nbHP += hp;
-            nbMagic += magic;
-            nbMood += mood;
-            nbStamina += stamina;
-            nbStrength += strength;
+            noobles.nbHP += hp;
+            noobles.nbMagic += magic;
+            noobles.nbMood += mood;
+            noobles.nbStamina += stamina;
+            noobles.nbStrength += strength;
 
-            if(nbHP < 0)
+            if(noobles.nbHP < 0)
             {
-                nbHP = 0;
+                noobles.nbHP = 0;
             }
-            else if(nbHP > 1000)
+            else if(noobles.nbHP > 1000)
             {
-                nbHP = 1000;
+                noobles.nbHP = 1000;
             }
 
-            if(nbHP < 200)
+            if(noobles.nbHP < 200)
             {
                 //starving
             }
-            else if(nbHP > 800)
+            else if(noobles.nbHP > 800)
             {
                 //thicc
             }
 
-            int sum = nbMagic + nbMood + nbStamina + nbStrength;
+            int sum = noobles.nbMagic + noobles.nbMood + noobles.nbStamina + noobles.nbStrength;
             int sub = (sum - 20) / 4;
 
-            nbMagic += sub;
-            nbMood += sub;
-            nbStamina += sub;
-            nbStrength += sub;
+            noobles.nbMagic -= sub;
+            noobles.nbMood -= sub;
+            noobles.nbStamina -= sub;
+            noobles.nbStrength -= sub;
+
+            if(noobles.nbMagic > 3 && noobles.nbMood > 3 && noobles.nbStamina > 3 && noobles.nbStrength > 3)
+            {
+                //Happy
+                noobles.showEmotion(0);
+            }
+            else if (noobles.nbMood < 2)
+            {
+                //Uneasy
+                noobles.showEmotion(1);
+            }
+            else if (noobles.nbMagic > 7)
+            {
+                //Content
+                noobles.showEmotion(2);
+            }
+            else if(noobles.nbStamina > 7 && noobles.nbStrength < 3)
+            {
+                //Unsure
+                noobles.showEmotion(3);
+            }
+            else if (noobles.nbMagic == 0 || noobles.nbStrength == 0 || noobles.nbMood == 0 || noobles.nbStamina == 0)
+            {
+                //Notgood
+                noobles.showEmotion(4);
+            }
 
             //Destroy(this.gameObject);
             anim = true;
             startTime = Time.time;
+            transform.parent = transform.parent.parent.parent.parent.parent.parent;
+            transform.position = startPos;
 
             Destroy(fridgeItem);
         }
