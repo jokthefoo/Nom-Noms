@@ -11,6 +11,7 @@ public class Noobles : MonoBehaviour {
     public int nbStrength = 5;
     public int nbMagic = 5;
 
+    public Sprite[] sprites;
     public GameObject[] emotions;
     public GameObject[] bars;
 
@@ -58,6 +59,20 @@ public class Noobles : MonoBehaviour {
             bars[2].GetComponent<Image>().fillAmount = (nbMood / 20f);
             bars[3].GetComponent<Image>().fillAmount = (nbStrength / 20f);
             bars[4].GetComponent<Image>().fillAmount = (nbStamina / 20f);
+
+            if(nbHP > 800)
+            {
+                //Thicc
+            }
+            else if (nbHP < 200)
+            {
+                //Smol
+            }
+            else
+            {
+                GetComponent<SpriteRenderer>().sprite = sprites[1];
+                //Normal
+            }
         }
 	}
 

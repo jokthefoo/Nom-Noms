@@ -25,6 +25,7 @@ public class MainGame : MonoBehaviour {
     public GameObject foodItemPrefab;
     public GameObject otherScrollContent;
     public GameObject foodInfoCanvas;
+    public GameObject[] foodStatsBars;
     public GameObject fridgeCanvas;
     public GameObject camButton;
 

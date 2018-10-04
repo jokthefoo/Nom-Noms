@@ -9,7 +9,7 @@ public class FoodItem : MonoBehaviour {
     public MainGame gameInstance;
 
     private string foodName = "";
-    private string desc = "i am ";
+    private string desc = "";
 
     private int stamina, mood, strength, magic, hp;
 
@@ -86,7 +86,7 @@ public class FoodItem : MonoBehaviour {
                     break;
                 case "012345678967":
                     foodName = "Orange";
-                    desc += "Orange, rhymes with...";
+                    desc += "Orange";
                     stamina = 0;
                     mood = 1;
                     strength = 0;
@@ -95,7 +95,7 @@ public class FoodItem : MonoBehaviour {
                     break;
                 case "012345678974":
                     foodName = "Pizza";
-                    desc += "Pizza, America's favorite vegetable";
+                    desc += "Pizza";
                     stamina = 3;
                     mood = 10;
                     strength = 6;
@@ -194,6 +194,22 @@ public class FoodItem : MonoBehaviour {
             gameInstance.foodInfoCanvas.GetComponentInChildren<Text>().text = desc;
             gameInstance.foodInfoCanvas.GetComponent<CanvasGroup>().alpha = 1;
             gameInstance.foodInfoCanvas.GetComponent<CanvasGroup>().blocksRaycasts = true;
+
+            int tempHp = hp;
+            if(hp < 0)
+            {
+                gameInstance.foodStatsBars[0].GetComponent<Image>().color = Color.gray;
+                tempHp *= -1;
+            }
+            else
+            {
+                gameInstance.foodStatsBars[0].GetComponent<Image>().color = Color.red;
+            }
+            gameInstance.foodStatsBars[0].GetComponent<Image>().fillAmount = (tempHp / 500f);
+            gameInstance.foodStatsBars[1].GetComponent<Image>().fillAmount = (magic / 10f);
+            gameInstance.foodStatsBars[2].GetComponent<Image>().fillAmount = (mood / 10f);
+            gameInstance.foodStatsBars[3].GetComponent<Image>().fillAmount = (strength / 10f);
+            gameInstance.foodStatsBars[4].GetComponent<Image>().fillAmount = (stamina / 10f);
         }
         else
         {
@@ -211,15 +227,6 @@ public class FoodItem : MonoBehaviour {
             else if(noobles.nbHP > 1000)
             {
                 noobles.nbHP = 1000;
-            }
-
-            if(noobles.nbHP < 200)
-            {
-                //starving
-            }
-            else if(noobles.nbHP > 800)
-            {
-                //thicc
             }
 
             int sum = noobles.nbMagic + noobles.nbMood + noobles.nbStamina + noobles.nbStrength;
