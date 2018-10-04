@@ -28,6 +28,7 @@ public class MainGame : MonoBehaviour {
     public GameObject[] foodStatsBars;
     public GameObject fridgeCanvas;
     public GameObject camButton;
+    public Sprite[] fridgeArrows;
 
     private GameObject Noobles;
 
@@ -156,7 +157,7 @@ public class MainGame : MonoBehaviour {
             cameraActive = true;
             hideShowInventoryCanvas(true, true);
             hideShowFridgeCanvas(true, true);
-            scanButton.GetComponentInChildren<Text>().text = "Stop";
+            scanButton.GetComponentInChildren<Text>().text = "";
             camImage.GetComponent<Renderer>().enabled = true;
         }
     }
@@ -171,7 +172,7 @@ public class MainGame : MonoBehaviour {
         cameraActive = false;
         hideShowInventoryCanvas(true, false);
         hideShowFridgeCanvas(true, false);
-        scanButton.GetComponentInChildren<Text>().text = "Scan Barcode";
+        scanButton.GetComponentInChildren<Text>().text = "";
         camImage.GetComponent<Renderer>().enabled = false;
     }
 
@@ -179,15 +180,17 @@ public class MainGame : MonoBehaviour {
     {
         if(transform.position.x == 0)
         {
-            camButton.GetComponentInChildren<Text>().text = "Close Fridge";
+            camButton.GetComponent<Image>().sprite = fridgeArrows[1];
+            camButton.GetComponentInChildren<Text>().text = "";
             transform.position = new Vector3(30, 0, 0);
             hideShowInventoryCanvas(false, true);
         }
         else
         {
+            camButton.GetComponent<Image>().sprite = fridgeArrows[0];
             hideShowInventoryCanvas(false, false);
             hideShowFridgeCanvas(false, true);
-            camButton.GetComponentInChildren<Text>().text = "Open Fridge";
+            camButton.GetComponentInChildren<Text>().text = "";
             transform.position = new Vector3(0, 0, 0);
         }
 

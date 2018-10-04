@@ -60,18 +60,20 @@ public class Noobles : MonoBehaviour {
             bars[3].GetComponent<Image>().fillAmount = (nbStrength / 20f);
             bars[4].GetComponent<Image>().fillAmount = (nbStamina / 20f);
 
-            if(nbHP > 800)
+            if(nbHP < 200)
             {
                 //Thicc
+                GetComponent<SpriteRenderer>().sprite = sprites[2];
             }
-            else if (nbHP < 200)
+            else if (nbHP > 800)
             {
                 //Smol
+                GetComponent<SpriteRenderer>().sprite = sprites[0];
             }
             else
             {
-                GetComponent<SpriteRenderer>().sprite = sprites[1];
                 //Normal
+                GetComponent<SpriteRenderer>().sprite = sprites[1];
             }
         }
 	}
